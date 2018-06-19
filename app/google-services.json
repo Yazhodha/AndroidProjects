@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "913106842247",
+    "firebase_url": "https://docdemo-b1d43.firebaseio.com",
+    "project_id": "docdemo-b1d43",
+    "storage_bucket": "docdemo-b1d43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913106842247:android:a25fdbb66a33d721",
+        "android_client_info": {
+          "package_name": "com.demo.docchanneling.docdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913106842247-08agqfqs3athmddoen83f526jll3aarf.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "913106842247-08agqfqs3athmddoen83f526jll3aarf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHeGoI7fF73F8VD9_qrCB3-jGPuGCHWSM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
