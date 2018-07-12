@@ -1,13 +1,17 @@
 package com.demo.docchanneling.docdemo;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -45,16 +52,17 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         //Checking if there's a user already logged in..
-//        FirebaseUser user = firebaseAuth.getCurrentUser();
-//        if(user !=null){
-//            finish(); // distroys the current activity.
-//            startActivity(new Intent(MainActivity.this, SecondActivity.class));
-//        }
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if(user !=null){
+            finish(); // distroys the current activity.
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+        }
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validate(Name.getText().toString(), Password.getText().toString());
+
             }
         });
 
@@ -66,17 +74,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+    }
+
     private void validate(String userName, String userPassword){
 
         progressDialog.setMessage("Your credentials are being verified!");
+        progressDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(userName, userPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
-                    startActivity(new Intent(MainActivity.this, SecondActivity.class));
-                    Toast.makeText(MainActivity.this, "Successfully Logged In!", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Successfully Logged In!", Toast.LENGTH_SHORT).show();
+                    checkEmailVerification();
                 }else {
                     Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     counter --;
@@ -102,6 +118,20 @@ public class MainActivity extends AppCompatActivity {
 //                Login.setEnabled(false);
 //            }
 //        }
+
+    }
+
+    private void checkEmailVerification(){
+        FirebaseUser firebaseUser = firebaseAuth.getInstance().getCurrentUser();
+        Boolean emailFlag = firebaseUser.isEmailVerified();
+
+        if(emailFlag){
+            finish();
+            startActivity(new Intent(MainActivity.this, SecondActivity.class));
+        }else {
+            Toast.makeText(this, "Verify your Email", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+        }
     }
 }
 
