@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "913106842247-08agqfqs3athmddoen83f526jll3aarf.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "913106842247-nd5e64enceks1thdmo7gggihmv6tt4k1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.demo.docchanneling.docdemo",
+            "certificate_hash": "e05693b5de27cc253ae7b985a48c94a3dcebcb3b"
+          }
         },
         {
           "client_id": "913106842247-08agqfqs3athmddoen83f526jll3aarf.apps.googleusercontent.com",
@@ -33,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913106842247-08agqfqs3athmddoen83f526jll3aarf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
