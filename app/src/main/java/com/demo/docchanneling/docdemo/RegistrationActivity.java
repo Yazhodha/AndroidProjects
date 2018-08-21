@@ -55,8 +55,10 @@ public class RegistrationActivity extends AppCompatActivity {
                                //After complete development, below lines of if condition must be removed.
                                //And sendEmailVerification function must be enabled.
 //                               sendUserData();
-//                               Toast.makeText(RegistrationActivity.this, "Successfully Registered. Data saved!", Toast.LENGTH_SHORT).show();
+//                               firebaseAuth.signOut();
+//                               Toast.makeText(RegistrationActivity.this, "Successfully Registered. Data saved!", Toast.LENGTH_LONG).show();
 //                               finish();
+//
 //                               startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
 
                            }else{
