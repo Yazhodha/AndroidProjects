@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.demo.docchanneling.docdemo">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:label="DOC Channelling"
         android:roundIcon="@drawable/docicon96"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +26,9 @@
         <activity android:name=".PasswordActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UpdateProfile" />
-        <activity android:name=".UpdatePassword"></activity>
+        <activity android:name=".UpdatePassword" />
+        <activity android:name=".ChannellingInfoActivity" />
+        <activity android:name=".RetrieveFIirebaseData"></activity>
     </application>
 
 </manifest>

@@ -17,12 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class SecondActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private FirebaseAuth firebaseAuth;
-    private Button logout;
+    private Button search;
     EditText pickDate;
 
     //this overrided method will take care the implementation of the app menu.
@@ -75,11 +74,11 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        logout = (Button) findViewById(R.id.btnSearch);
-        logout.setOnClickListener(new View.OnClickListener() {
+        search = (Button) findViewById(R.id.btnSearch);
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogOut();
+                startActivity(new Intent(SecondActivity.this, ChannellingInfoActivity.class));
             }
         });
 
