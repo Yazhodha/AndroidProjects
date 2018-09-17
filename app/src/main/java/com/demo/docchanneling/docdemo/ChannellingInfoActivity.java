@@ -1,9 +1,12 @@
 package com.demo.docchanneling.docdemo;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,31 +46,20 @@ public class ChannellingInfoActivity extends AppCompatActivity {
         list = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
 
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds : dataSnapshot.getChildren()){
-//                    channellingInfo = ds.getValue(ChannellingInfo.class);
-//                    list.add(channellingInfo.getDocName().toString()+" "+channellingInfo.getChannelCenterName().toString());
-//                }
-//                listView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-
                     channellingInfo = dataSnapshot.getValue(ChannellingInfo.class);
                     list.add(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(ChannellingInfoActivity.this, ChannelDoctorInfo.class);
+                        intent.putExtra("ChannelItem", listView.getItemAtPosition(position).toString());
+                        startActivity(intent);
+                    }
+                });
                 }
 
 
@@ -92,6 +84,26 @@ public class ChannellingInfoActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+
         });
+
+
+
+
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for(DataSnapshot ds : dataSnapshot.getChildren()){
+//                    channellingInfo = ds.getValue(ChannellingInfo.class);
+//                    list.add(channellingInfo.getDocName().toString()+" "+channellingInfo.getChannelCenterName().toString());
+//                }
+//                listView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 }

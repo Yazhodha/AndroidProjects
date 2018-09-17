@@ -2,4 +2,5 @@
     <string name="app_name">DocDEMO</string>
     <string name="name">Name</string>
     <string name="button">Button</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
