@@ -41,25 +41,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     FusedLocationProviderClient client;
 
-    double latitude;
-    double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-
-
         super.onCreate(savedInstanceState);
-
 
         setContentView(R.layout.activity_maps);
 
         //Getting Current Location========
         requestPermission();
-
-
-
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -104,8 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     mMap.addMarker(new MarkerOptions().position(cLocation).title("Your Location"));
 
-                    LatLng kandy = new LatLng(7.2665,80.5982);
-                    mMap.addMarker(new MarkerOptions().position(kandy).title("Peradeniya Hospital"));
+                    LatLng kandy = new LatLng(6.9210,79.8535);
+                    mMap.addMarker(new MarkerOptions().position(kandy).title("Nawaloka Hospitals"));
 
 //                    LatLng kegalle = new LatLng(7.2513,80.3464);
 
@@ -113,13 +104,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     List<LatLng> path = new ArrayList();
 
                     //Create single origin String current location
-                    String currentLocation = String.valueOf(location.getLatitude())+","+String.valueOf(location.getLongitude());
+                    String currentLocation = String.valueOf(location.getLatitude()).trim()+","+String.valueOf(location.getLongitude()).trim();
 
                     //Execute Directions API request
                     GeoApiContext context = new GeoApiContext.Builder()
                             .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
                             .build();
-                    DirectionsApiRequest req = DirectionsApi.getDirections(context, currentLocation, "7.2665,80.5982");
+                    DirectionsApiRequest req = DirectionsApi.getDirections(context, currentLocation, "6.9210,79.8535");
                     try {
                         DirectionsResult res = req.await();
 
@@ -179,9 +170,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         //----------------------------------
-
-
-//        LatLng colombo = new LatLng(6.9271,79.8612);
 
     }
 
