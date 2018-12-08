@@ -22,10 +22,10 @@
     </item>
 
     <item
-        android:id="@+id/refreshMenu"
+        android:id="@+id/bookingsMenu"
         android:orderInCategory="300"
         app:showAsAction="never"
-        android:title="Refresh"
+        android:title="My Bookings"
         >
 
     </item>

@@ -43,6 +43,10 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
                 startActivity(new Intent(SecondActivity.this, ProfileActivity.class));
                 break;
             }
+            case R.id.bookingsMenu: {
+                startActivity(new Intent(SecondActivity.this, MyBookings.class));
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
