@@ -19,6 +19,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class ChannellingInfoActivity extends AppCompatActivity {
@@ -28,10 +32,10 @@ public class ChannellingInfoActivity extends AppCompatActivity {
     ListView listView;
     FirebaseDatabase database;
     DatabaseReference ref;
-    ArrayList<String> list;
+    ArrayList<String> list , RefinedList;
     ArrayAdapter<String> adapter;
     ChannellingInfo channellingInfo;
-
+    String searchItem = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +43,45 @@ public class ChannellingInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_channelling_info);
 
 
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle !=null){
+
+            searchItem = bundle.getString("SearchItem");
+
+        }
+
+
+
         channellingInfo = new ChannellingInfo();
         listView = (ListView) findViewById(R.id.listView);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("docChannelling/channelDocInformation");
         list = new ArrayList<>();
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        RefinedList = new ArrayList<>();
+//        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, RefinedList);
 
         ref.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     channellingInfo = dataSnapshot.getValue(ChannellingInfo.class);
-                    list.add(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
-                    listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    String newItem = channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString();
+
+                    if(!list.contains(newItem)){
+                        list.add(newItem);
+                    }
+
+                for (String listItem: list) {
+                    if(listItem.toUpperCase().contains(searchItem)){
+                        RefinedList.add(listItem);
+                    }
+                }
+//                adapter.clear();
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(ChannellingInfoActivity.this, ChannelDoctorInfo.class);
@@ -60,6 +89,7 @@ public class ChannellingInfoActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
                 }
 
 
@@ -72,6 +102,7 @@ public class ChannellingInfoActivity extends AppCompatActivity {
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 channellingInfo = dataSnapshot.getValue(ChannellingInfo.class);
                 list.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
+                RefinedList.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
                 listView.setAdapter(adapter);
             }
 
@@ -85,7 +116,10 @@ public class ChannellingInfoActivity extends AppCompatActivity {
 
             }
 
+
+
         });
+
 
 
 

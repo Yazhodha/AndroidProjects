@@ -14,6 +14,7 @@ public class ChannelDoctorInfo extends AppCompatActivity {
     TextView chaCenter;
     Button location;
     Button btnBook;
+    String  channelCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class ChannelDoctorInfo extends AppCompatActivity {
         location = (Button) findViewById(R.id.btnLocation);
         btnBook = (Button) findViewById(R.id.btnBook);
 
+          channelCenter = null;
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
 
@@ -35,11 +37,15 @@ public class ChannelDoctorInfo extends AppCompatActivity {
             chaDate.setText(parts[0].trim());
             chaDoc.setText(parts[1].trim());
             chaCenter.setText(parts[2].trim());
+            channelCenter = parts[2].trim();
         }
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ChannelDoctorInfo.this, MapsActivity.class));
+                Intent intent = new Intent(ChannelDoctorInfo.this, MapsActivity.class);
+                intent.putExtra("ChannelCenter", channelCenter);
+                startActivity(intent);
+//                startActivity(new Intent(ChannelDoctorInfo.this, MapsActivity.class));
             }
         });
         btnBook.setOnClickListener(new View.OnClickListener() {

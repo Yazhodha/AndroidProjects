@@ -39,6 +39,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private String TAG = "so47492459";
 
+    String channelCenter = null;
+    double channelCenterLocationLat = 0.0;
+    double channelCenterLocationLng = 0.0;
+
     FusedLocationProviderClient client;
 
 
@@ -48,6 +52,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
+
+
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle !=null){
+
+            channelCenter = bundle.getString("ChannelCenter");
+
+        }
+
+        if(channelCenter.equalsIgnoreCase("Hemas Hospitals")){
+            channelCenterLocationLat = 6.8785;
+            channelCenterLocationLng = 79.9353;
+        }else if(channelCenter.equalsIgnoreCase("Asiri Hospitals")){
+            channelCenterLocationLat = 6.8935;
+            channelCenterLocationLng = 79.8743;
+        }else if(channelCenter.equalsIgnoreCase("Nawaloka Hospitals")){
+            channelCenterLocationLat = 6.9210;
+            channelCenterLocationLng = 79.8535;
+        }else if(channelCenter.equalsIgnoreCase("Amaya Hospitals")){
+            channelCenterLocationLat = 7.2743;
+            channelCenterLocationLng = 80.6128;
+        }else if(channelCenter.equalsIgnoreCase("Durdons Hospitals")){
+            channelCenterLocationLat = 6.9021;
+            channelCenterLocationLng = 79.8535;
+        }
 
         //Getting Current Location========
         requestPermission();
@@ -59,15 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -95,8 +117,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     mMap.addMarker(new MarkerOptions().position(cLocation).title("Your Location"));
 
-                    LatLng kandy = new LatLng(6.9210,79.8535);
-                    mMap.addMarker(new MarkerOptions().position(kandy).title("Nawaloka Hospitals"));
+                    LatLng kandy = new LatLng(channelCenterLocationLat,channelCenterLocationLng);
+                    mMap.addMarker(new MarkerOptions().position(kandy).title(channelCenter));
 
 //                    LatLng kegalle = new LatLng(7.2513,80.3464);
 
@@ -106,11 +128,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //Create single origin String current location
                     String currentLocation = String.valueOf(location.getLatitude()).trim()+","+String.valueOf(location.getLongitude()).trim();
 
+                    //Create single destination String
+                    String destination = String.valueOf(channelCenterLocationLat)+","+String.valueOf(channelCenterLocationLng);
+
                     //Execute Directions API request
                     GeoApiContext context = new GeoApiContext.Builder()
                             .apiKey("AIzaSyBrPt88vvoPDDn_imh-RzCXl5Ha2F2LYig")
+//                            .apiKey("AIzaSyAQwpFIYoUxkWF6To-IlTAyRK37sDBSBi0")
                             .build();
-                    DirectionsApiRequest req = DirectionsApi.getDirections(context, currentLocation, "6.9210,79.8535");
+                    DirectionsApiRequest req = DirectionsApi.getDirections(context, currentLocation, destination);
                     try {
                         DirectionsResult res = req.await();
 

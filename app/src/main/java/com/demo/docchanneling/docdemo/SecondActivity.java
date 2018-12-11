@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,7 +23,8 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
 
     private FirebaseAuth firebaseAuth;
     private Button search;
-    EditText pickDate;
+    private EditText etSearch;
+//    EditText pickDate;
 
     //this overrided method will take care the implementation of the app menu.
     @Override
@@ -60,15 +62,15 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDateString = df.format(c.getTime());
-        pickDate.setText(currentDateString);
+//        Calendar c = Calendar.getInstance();
+//        c.set(Calendar.YEAR, year);
+//        c.set(Calendar.MONTH, month);
+//        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//
+//        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//        String currentDateString = df.format(c.getTime());
+//        pickDate.setText(currentDateString);
     }
 
     @Override
@@ -77,23 +79,42 @@ public class SecondActivity extends AppCompatActivity implements DatePickerDialo
         setContentView(R.layout.activity_second);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
+        etSearch = (EditText) findViewById(R.id.etSearch);
         search = (Button) findViewById(R.id.btnSearch);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SecondActivity.this, ChannellingInfoActivity.class));
+//                startActivity(new Intent(SecondActivity.this, ChannellingInfoActivity.class));
+
+//                if(etSearch.getText()==null){
+//                    Intent intent = new Intent(SecondActivity.this, ChannellingInfoActivity.class);
+//                    intent.putExtra("SearchItem", etSearch.getText().toString().trim());
+//                    startActivity(intent);
+//                }else {
+//                    Toast.makeText(SecondActivity.this, "Please enter a search item in the search box", Toast.LENGTH_SHORT).show();
+//                }
+                if (etSearch.getText().toString().matches("")) {
+                    Toast.makeText(SecondActivity.this, "Please enter a search item in the search box", Toast.LENGTH_SHORT).show();
+                    return;
+                }else{
+//                    Toast.makeText(SecondActivity.this, etSearch.getText().toString(), Toast.LENGTH_SHORT).show();
+//                    return;
+                    Intent intent = new Intent(SecondActivity.this, ChannellingInfoActivity.class);
+                    intent.putExtra("SearchItem", etSearch.getText().toString().toUpperCase().trim());
+                    startActivity(intent);
+                }
+
             }
         });
 
-        pickDate = findViewById(R.id.etPickDate);
-        pickDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
-            }
-        });
+//        pickDate = findViewById(R.id.etPickDate);
+//        pickDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DialogFragment datePicker = new DatePickerFragment();
+//                datePicker.show(getSupportFragmentManager(), "date picker");
+//            }
+//        });
     }
 
     @Override
