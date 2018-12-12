@@ -1,11 +1,20 @@
 package com.demo.docchanneling.docdemo;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ChannelDoctorInfo extends AppCompatActivity {
 
@@ -14,7 +23,16 @@ public class ChannelDoctorInfo extends AppCompatActivity {
     TextView chaCenter;
     Button location;
     Button btnBook;
-    String  channelCenter;
+
+   private String  channelCenter;
+   private String docName;
+   private String date;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference ref;
+    private FirebaseAuth firebaseAuth;
+
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +45,31 @@ public class ChannelDoctorInfo extends AppCompatActivity {
         location = (Button) findViewById(R.id.btnLocation);
         btnBook = (Button) findViewById(R.id.btnBook);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        ref = firebaseDatabase.getReference(firebaseAuth.getUid());
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                UserProfile userProfile = dataSnapshot.getValue(UserProfile.class);
+                userName = userProfile.getName();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ChannelDoctorInfo.this, databaseError.getCode(), Toast.LENGTH_LONG);
+            }
+        });
+
+        //==============================================================================
+
           channelCenter = null;
+          docName = null;
+          date = null;
+
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null){
 
@@ -37,7 +79,10 @@ public class ChannelDoctorInfo extends AppCompatActivity {
             chaDate.setText(parts[0].trim());
             chaDoc.setText(parts[1].trim());
             chaCenter.setText(parts[2].trim());
+
             channelCenter = parts[2].trim();
+            docName = parts[1].trim();
+            date = parts[0].trim();
         }
         location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +96,13 @@ public class ChannelDoctorInfo extends AppCompatActivity {
         btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final DatabaseReference databaseReference = firebaseDatabase.getReference("docChannelling/appointments");
+
+                Appointments appointments = new Appointments(userName, docName, channelCenter, date);
+
+                databaseReference.push().setValue(appointments);
+
                 startActivity(new Intent(ChannelDoctorInfo.this, booking.class));
             }
         });

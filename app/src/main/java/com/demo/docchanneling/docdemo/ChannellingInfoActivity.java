@@ -62,15 +62,18 @@ public class ChannellingInfoActivity extends AppCompatActivity {
 //        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, RefinedList);
 
+
+
         ref.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     channellingInfo = dataSnapshot.getValue(ChannellingInfo.class);
 
-                    String newItem = channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString();
+                    String newItem = channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString()+" | "+channellingInfo.getChannelSpec().toString();
 
-                    if(!list.contains(newItem)){
+                    //check if the list is null or not before add new item.
+                    if(!list.contains(null)){
                         list.add(newItem);
                     }
 
@@ -79,7 +82,6 @@ public class ChannellingInfoActivity extends AppCompatActivity {
                         RefinedList.add(listItem);
                     }
                 }
-//                adapter.clear();
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -89,6 +91,9 @@ public class ChannellingInfoActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+                list.clear();
+                //it must clear the list right after setting the adapter.
+
 
                 }
 
@@ -101,8 +106,8 @@ public class ChannellingInfoActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 channellingInfo = dataSnapshot.getValue(ChannellingInfo.class);
-                list.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
-                RefinedList.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString());
+                list.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString()+" | "+channellingInfo.getChannelSpec().toString());
+                RefinedList.remove(channellingInfo.getDate()+" | "+channellingInfo.getDocName().toString()+" | "+channellingInfo.getChannelCenterName().toString()+" | "+channellingInfo.getChannelSpec().toString());
                 listView.setAdapter(adapter);
             }
 
@@ -121,7 +126,7 @@ public class ChannellingInfoActivity extends AppCompatActivity {
         });
 
 
-
+        listView.setAdapter(null);
 
 
 //        ref.addValueEventListener(new ValueEventListener() {

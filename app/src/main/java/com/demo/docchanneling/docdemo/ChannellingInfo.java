@@ -6,11 +6,12 @@ public class ChannellingInfo {
     public ChannellingInfo() {
     }
 
-    public ChannellingInfo(String id, String docName, String channelCenterName, String date) {
+    public ChannellingInfo(String id, String docName, String channelCenterName, String date, String channelSpec) {
         this.id = id;
         this.docName = docName;
         this.channelCenterName = channelCenterName;
         this.date = date;
+        this.channelSpec = channelSpec;
     }
 
     private String id;
@@ -20,6 +21,21 @@ public class ChannellingInfo {
     private String channelCenterName;
 
     private String date;
+
+    private String channelSpec;
+
+
+
+
+    public String getChannelSpec() {
+        return channelSpec;
+    }
+
+    public void setChannelSpec(String channelSpec) {
+        this.channelSpec = channelSpec;
+    }
+
+
 
     public String getId ()
     {
