@@ -1,7 +1,9 @@
 package com.demo.docchanneling.docdemo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +44,7 @@ public class ChannelDoctorInfo extends AppCompatActivity {
         chaDate  = (TextView) findViewById(R.id.tvChaDate);
         chaDoc = (TextView) findViewById(R.id.tvChaDoc);
         chaCenter = (TextView) findViewById(R.id.tvChaCenter);
-        location = (Button) findViewById(R.id.btnLocation);
+        location = (Button) findViewById(R.id.btnLocation1);
         btnBook = (Button) findViewById(R.id.btnBook);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -97,13 +99,31 @@ public class ChannelDoctorInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final DatabaseReference databaseReference = firebaseDatabase.getReference("docChannelling/appointments");
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChannelDoctorInfo.this);
+                builder.setTitle("Place Your Booking");
+                builder.setMessage("Are you sure you want to place a booking?");
 
-                Appointments appointments = new Appointments(userName, docName, channelCenter, date);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final DatabaseReference databaseReference = firebaseDatabase.getReference("docChannelling/appointments");
 
-                databaseReference.push().setValue(appointments);
+                        Appointments appointments = new Appointments(userName, docName, channelCenter, date);
 
-                startActivity(new Intent(ChannelDoctorInfo.this, booking.class));
+                        databaseReference.push().setValue(appointments);
+
+                        startActivity(new Intent(ChannelDoctorInfo.this, booking.class));
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                builder.create().show();
             }
         });
     }

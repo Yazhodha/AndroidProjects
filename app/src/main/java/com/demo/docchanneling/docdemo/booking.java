@@ -9,7 +9,7 @@ import android.widget.Button;
 public class booking extends AppCompatActivity {
 
     Button goToHome;
-    Button bookings;
+//    Button bookings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class booking extends AppCompatActivity {
         setContentView(R.layout.activity_booking);
 
         goToHome = (Button) findViewById(R.id.btnGotoHome);
-        bookings = (Button) findViewById(R.id.btnBookings);
+//        bookings = (Button) findViewById(R.id.btnBookings);
 
         goToHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,12 +26,12 @@ public class booking extends AppCompatActivity {
             }
         });
 
-        bookings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(booking.this, MyBookings.class));
-            }
-        });
+//        bookings.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(booking.this, MyBookings.class));
+//            }
+//        });
 
     }
 }

@@ -158,11 +158,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLocation"
+        app:layout_constraintTop_toBottomOf="@+id/btnLocation1"
         app:layout_constraintVertical_bias="0.415" />
 
     <Button
-        android:id="@+id/btnLocation"
+        android:id="@+id/btnLocation1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

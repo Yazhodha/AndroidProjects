@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/tvBooking"
         android:layout_width="164dp"
-        android:layout_height="40dp"
+        android:layout_height="58dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -18,32 +18,32 @@
         android:layout_marginBottom="8dp"
         android:text="Your Booking is Processing"
         android:textAlignment="center"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.362" />
 
     <TextView
         android:id="@+id/tvProcessBooking"
         android:layout_width="332dp"
-        android:layout_height="83dp"
+        android:layout_height="104dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="7dp"
         android:layout_marginRight="7dp"
         android:layout_marginBottom="8dp"
-        android:text="Your Booking is currently being processed. Confimation email will be sent to your mailbox. Check your mailbox after few minutes."
-        android:textSize="15sp"
+        android:text="Your Booking is currently being processed. Confimation will be done via a phone call from one of our agent.  Check your Bookings After Confirmation.."
         android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBooking"
-        app:layout_constraintVertical_bias="0.167" />
+        app:layout_constraintVertical_bias="0.133" />
 
     <Button
         android:id="@+id/btnGotoHome"
@@ -58,27 +58,25 @@
         android:text="Go to Home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProcessBooking"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintVertical_bias="0.45" />
 
-    <Button
-        android:id="@+id/btnBookings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="check bookings"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvBooking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toEndOf="@+id/btnGotoHome"
-        app:layout_constraintTop_toBottomOf="@+id/tvProcessBooking"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/doctor480" />
 
 </android.support.constraint.ConstraintLayout>

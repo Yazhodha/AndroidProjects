@@ -57,11 +57,11 @@ public class ChannellingInfoActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("docChannelling/channelDocInformation");
+
         list = new ArrayList<>();
         RefinedList = new ArrayList<>();
 //        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, RefinedList);
-
 
 
         ref.addChildEventListener(new ChildEventListener() {
